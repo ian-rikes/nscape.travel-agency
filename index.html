@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NScape Travel | Luxury African Safaris</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #2c3e50;
+            --safari-green: #27ae60;
+            --safari-brown: #8B4513;
+            --gold: #FFD700;
+            --ivory: #FFFFF0;
+            --light-bg: #f9f9f9;
+            --dark-text: #333;
+            --light-text: #777;
+            --white: #fff;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--ivory);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            height: 100px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 70px;
+            margin-right: 15px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            font-size: 0.9rem;
+            color: var(--white);
+            letter-spacing: 3px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a.active:after {
+            width: 100%;
+        }
+        
+        /* Currency Selector */
+        .currency-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .currency-selector:hover {
+            background: rgba(230, 126, 34, 0.2);
+        }
+        
+        .currency-flag {
+            font-size: 1.5rem;
+            margin-right: 5px;
+        }
+        
+        .currency-dropdown {
+            position: absolute;
+            top: 85px;
+            right: 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .currency-dropdown.show {
+            display: block;
+        }
+        
+        .currency-option {
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .currency-option:hover {
+            background: rgba(230, 126, 34, 0.2);
+        }
+        
+        .currency-option.active {
+            background: var(--primary-color);
+        }
+        
+        /* Page Container */
+        .page-container {
+            min-height: calc(100vh - 200px);
+            padding: 20px 5%;
+            display: none;
+        }
+        
+        .page-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Hero Section */
+        #home-page {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        #home-page h2 {
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            color: var(--gold);
+        }
+        
+        #home-page p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .hero-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 40px;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .hero-btn:hover {
+            background: transparent;
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Section Styles */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--gold);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Tours Section */
+        .tours-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tour-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(230, 126, 34, 0.15);
+        }
+        
+        .tour-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .tour-title {
+            font-size: 1.5rem;
+            margin: 0 0 15px;
+            color: var(--gold);
+        }
+        
+        .tour-description {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+        
+        .tour-price {
+            display: block;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .tour-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            display: inline-block;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .tour-btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+        
+        /* Activities Section */
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .activity-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-10px);
+            background: rgba(230, 126, 34, 0.2);
+        }
+        
+        .activity-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+        
+        .activity-price {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        /* Reviews Section */
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .review-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-right: 15px;
+        }
+        
+        .review-info h4 {
+            margin: 0;
+            color: var(--gold);
+        }
+        
+        .review-stars {
+            color: var(--gold);
+            margin-top: 5px;
+        }
+        
+        .review-content {
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .translate-btn {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .translate-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 5px;
+            color: var(--gold);
+        }
+        
+        .contact-link {
+            color: var(--ivory);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--gold);
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--ivory);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.3);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 50px 5% 30px;
+            border-top: 2px solid var(--primary-color);
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--ivory);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .booking-modal {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transform: translateY(-20px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .modal-overlay.active .booking-modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--ivory);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+        
+        .thank-you-content {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .thank-you-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid var(--gold);
+        }
+        
+        .thank-you-message {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .booking-code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 15px 0;
+            letter-spacing: 2px;
+            border: 2px dashed var(--gold);
+        }
+        
+        .contact-instruction {
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+        
+        /* Booking Form */
+        .booking-form .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .booking-form label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+        
+        .booking-form input,
+        .booking-form select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--ivory);
+            font-size: 0.9rem;
+        }
+        
+        /* Date input with calendar icon */
+        .date-input-wrapper {
+            position: relative;
+        }
+        
+        .date-input-wrapper i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            pointer-events: none;
+        }
+        
+        .price-summary {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .total-price {
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--gold);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+        
+        /* Activity Categories */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--ivory);
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            #home-page h2 {
+                font-size: 3rem;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            #home-page h2 {
+                font-size: 2.5rem;
+            }
+            
+            #home-page p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .currency-selector {
+                margin-top: 15px;
+            }
+            
+            .currency-dropdown {
+                top: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #home-page h2 {
+                font-size: 2rem;
+            }
+            
+            #home-page p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .tours-container,
+            .activities-container,
+            .reviews-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-modal {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/263772693423" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.jpg">
+            <div class="logo-text">
+       
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home-page">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="tours-page">Tours</a></li>
+                <li><a href="#" class="nav-link" data-page="activities-page">Activities</a></li>
+                <li><a href="#" class="nav-link" data-page="reviews-page">Reviews</a></li>
+                <li><a href="#" class="nav-link" data-page="contact-page">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Currency Selector -->
+        <div class="currency-selector" id="currencySelector">
+            <span class="fi fi-us currency-flag"></span>
+            <span id="currentCurrency">USD</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="currency-dropdown" id="currencyDropdown">
+            <!-- Options will be populated by JavaScript -->
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page-container active">
+        <h2>Experience the Magic of Africa</h2>
+        <p>Discover breathtaking landscapes, vibrant cultures, and unforgettable adventures with NScape Travel</p>
+        <a href="#" class="hero-btn nav-link" data-page="tours-page">Explore Our Tours</a>
+    </div>
+
+    <!-- Tours Page -->
+    <div id="tours-page" class="page-container">
+        <h2 class="section-title">Signature Safari Tours</h2>
+        <div class="tours-container">
+            <!-- Tours will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Activities Page -->
+    <div id="activities-page" class="page-container">
+        <h2 class="section-title">Featured Activities</h2>
+        
+        <div class="category-tabs">
+            <button class="category-btn active" data-category="all">All Activities</button>
+            <button class="category-btn" data-category="adventure">Adventure</button>
+            <button class="category-btn" data-category="wildlife">Wildlife</button>
+            <button class="category-btn" data-category="culture">Culture</button>
+            <button class="category-btn" data-category="water">Water</button>
+        </div>
+        
+        <div class="activities-container" id="activitiesContainer">
+            <!-- Activities will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Reviews Page -->
+    <div id="reviews-page" class="page-container">
+        <h2 class="section-title">Traveler Experiences</h2>
+        <div class="reviews-container">
+            <!-- Reviews will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact-page" class="page-container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Our Location</h3>
+                        <a href="https://maps.app.goo.gl/example" class="contact-link" target="_blank">5846 Mkhosana, Victoria Falls, Zimbabwe</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <a href="tel:+263772693423" class="contact-link">+263 772 693 423</a>
+                        <a href="tel:+263789917555" class="contact-link">+263 789 917 555</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <a href="mailto:nscapetravel@gmail.com" class="contact-link">nscapetravel@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Working Hours</h3>
+                        <p>Monday - Friday: 8am - 5pm CAT</p>
+                        <p>Saturday: 9am - 1pm CAT</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="inquiryForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Interest</label>
+                        <select id="interest">
+                            <option value="tour">Safari Tour</option>
+                            <option value="activity">Activity</option>
+                            <option value="custom">Custom Package</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">NSCAPE</div>
+        <div class="footer-links">
+            <a href="#" class="nav-link" data-page="home-page">Home</a>
+            <a href="#" class="nav-link" data-page="tours-page">Tours</a>
+            <a href="#" class="nav-link" data-page="activities-page">Activities</a>
+            <a href="#" class="nav-link" data-page="reviews-page">Reviews</a>
+            <a href="#" class="nav-link" data-page="contact-page">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p class="copyright">&copy; 2023 NScape Travel Agency. All rights reserved.</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="booking-modal">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h3>Book Your Experience</h3>
+                <p>Complete your reservation details</p>
+            </div>
+            
+            <form id="bookingForm" class="booking-form">
+                <div class="form-group">
+                    <label for="bookingName">Tour/Activity</label>
+                    <input type="text" id="bookingName" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingDate">Travel Date</label>
+                    <div class="date-input-wrapper">
+                        <input type="date" id="bookingDate" required>
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers</label>
+                    <select id="travelers" required onchange="calculatePrice()">
+                        <option value="1">1 Traveler</option>
+                        <option value="2" selected>2 Travelers</option>
+                        <option value="3">3 Travelers</option>
+                        <option value="4">4 Travelers</option>
+                        <option value="5">5 Travelers</option>
+                        <option value="6">6+ Travelers</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="price-summary">
+                    <h4>Price Summary</h4>
+                    <div class="price-row">
+                        <span>Price per person:</span>
+                        <span id="pricePerPerson">$0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Number of travelers:</span>
+                        <span id="travelerCount">0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Booking fee:</span>
+                        <span id="bookingFee">$50</span>
+                    </div>
+                    <div class="total-price">
+                        <span>Total:</span>
+                        <span id="totalPrice">$0</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Complete Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div class="modal-overlay" id="thankYouModal">
+        <div class="booking-modal">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="thank-you-content">
+                <img src="https://images.unsplash.com/photo-1534188753411-3e935c58a105?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Traditional African People" class="thank-you-image">
+                <h3 class="modal-header">Thank You for Your Booking!</h3>
+                <p class="thank-you-message">"Asante sana! Your booking has been received. Our team is preparing for your unforgettable journey through the heart of Africa."</p>
+                <p class="contact-instruction">Please send this booking code to NScape Travel to confirm your reservation:</p>
+                <div class="booking-code" id="bookingCode">NS-8X4T2R</div>
+                <p>Contact us via WhatsApp or email to complete your booking:</p>
+                <div style="margin: 20px 0; display: flex; gap: 15px; justify-content: center;">
+                    <a href="https://wa.me/263772693423" class="tour-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:nscapetravel@gmail.com" class="tour-btn">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== Currency Conversion System ======
+        const currencies = [
+            { code: 'USD', name: 'US Dollar', flag: 'us', symbol: '$', rate: 1 },
+            { code: 'EUR', name: 'Euro', flag: 'eu', symbol: '€', rate: 0.93 },
+            { code: 'GBP', name: 'British Pound', flag: 'gb', symbol: '£', rate: 0.80 },
+            { code: 'ZAR', name: 'South African Rand', flag: 'za', symbol: 'R', rate: 18.50 },
+            { code: 'AUD', name: 'Australian Dollar', flag: 'au', symbol: 'A$', rate: 1.52 },
+            { code: 'CAD', name: 'Canadian Dollar', flag: 'ca', symbol: 'C$', rate: 1.36 },
+            { code: 'JPY', name: 'Japanese Yen', flag: 'jp', symbol: '¥', rate: 148.50 },
+            { code: 'INR', name: 'Indian Rupee', flag: 'in', symbol: '₹', rate: 83.12 },
+            { code: 'CNY', name: 'Chinese Yuan', flag: 'cn', symbol: '¥', rate: 7.25 },
+            { code: 'ZMW', name: 'Zambian Kwacha', flag: 'zm', symbol: 'ZK', rate: 23.45 }
+        ];
+        
+        let currentCurrency = currencies[0];
+        
+        // Initialize currency dropdown
+        function initCurrencySelector() {
+            const currencyDropdown = document.getElementById('currencyDropdown');
+            currencies.forEach(currency => {
+                const option = document.createElement('div');
+                option.className = 'currency-option';
+                if (currency.code === currentCurrency.code) option.classList.add('active');
+                
+                option.innerHTML = `
+                    <span class="fi fi-${currency.flag}"></span>
+                    <span>${currency.code} (${currency.symbol})</span>
+                `;
+                
+                option.addEventListener('click', () => {
+                    currentCurrency = currency;
+                    updateCurrencyDisplay();
+                    convertAllPrices();
+                    document.querySelectorAll('.currency-option').forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    currencyDropdown.classList.remove('show');
+                });
+                
+                currencyDropdown.appendChild(option);
+            });
+            
+            document.getElementById('currencySelector').addEventListener('click', () => {
+                currencyDropdown.classList.toggle('show');
+            });
+        }
+        
+        // Update currency display in header
+        function updateCurrencyDisplay() {
+            document.getElementById('currentCurrency').textContent = currentCurrency.code;
+            const flagElement = document.querySelector('#currencySelector .currency-flag');
+            flagElement.className = `fi fi-${currentCurrency.flag} currency-flag`;
+        }
+        
+        // Convert all prices on the page
+        function convertAllPrices() {
+            // Convert tour prices
+            document.querySelectorAll('.tour-price').forEach(priceElement => {
+                const originalPrice = parseFloat(priceElement.dataset.usd);
+                const convertedPrice = (originalPrice * currentCurrency.rate).toFixed(2);
+                priceElement.textContent = `${currentCurrency.symbol}${convertedPrice} per person`;
+            });
+            
+            // Convert activity prices
+            document.querySelectorAll('.activity-price').forEach(priceElement => {
+                const originalPrice = parseFloat(priceElement.dataset.usd);
+                const convertedPrice = (originalPrice * currentCurrency.rate).toFixed(2);
+                priceElement.textContent = `${currentCurrency.symbol}${convertedPrice} per person`;
+            });
+        }
+        
+        // ====== Tours Data ======
+        const tours = [
+            {
+                id: 1,
+                title: "Victoria Falls Explorer",
+                description: "Witness 'The Smoke That Thunders' - one of the Seven Natural Wonders of the World with exclusive guided tours.",
+                price: 1299
+            },
+            {
+                id: 2,
+                title: "Hwange Safari Experience",
+                description: "Discover Zimbabwe's largest national park with its incredible elephant population and diverse wildlife.",
+                price: 1899
+            },
+            {
+                id: 3,
+                title: "Mana Pools Walking Safari",
+                description: "Experience one of Africa's most spectacular wilderness areas on foot with expert guides.",
+                price: 2499
+            },
+            {
+                id: 4,
+                title: "Great Zimbabwe Heritage Tour",
+                description: "Explore the ancient stone ruins of this UNESCO World Heritage Site and learn about Zimbabwe's rich history.",
+                price: 999
+            },
+            {
+                id: 5,
+                title: "Gonarezhou Wilderness",
+                description: "Experience the remote and wild beauty of Zimbabwe's second largest national park.",
+                price: 1599
+            },
+            {
+                id: 6,
+                title: "Eastern Highlands Adventure",
+                description: "Explore Zimbabwe's stunning mountain landscapes, waterfalls, and tea plantations.",
+                price: 1199
+            }
+        ];
+        
+        // ====== Activities Data (Over 50) ======
+        const activities = [
+            // Adventure Activities
+            { id: 1, title: "Sunset Boat Cruise", price: 75, category: "adventure" },
+            { id: 2, title: "Jet Boat Adventure", price: 95, category: "adventure" },
+            { id: 3, title: "Bungee Jumping", price: 130, category: "adventure" },
+            { id: 4, title: "Gorge Swing", price: 100, category: "adventure" },
+            { id: 5, title: "Zip-lining", price: 85, category: "adventure" },
+            { id: 6, title: "White Water Rafting", price: 120, category: "adventure" },
+            { id: 7, title: "Abseiling", price: 90, category: "adventure" },
+            { id: 8, title: "Quad Biking", price: 80, category: "adventure" },
+            { id: 9, title: "Mountain Biking", price: 70, category: "adventure" },
+            { id: 10, title: "Rock Climbing", price: 95, category: "adventure" },
+            
+            // Wildlife Activities
+            { id: 11, title: "Elephant Encounter", price: 85, category: "wildlife" },
+            { id: 12, title: "Rhino Tracking", price: 110, category: "wildlife" },
+            { id: 13, title: "Lion Walking", price: 150, category: "wildlife" },
+            { id: 14, title: "Bird Watching Tour", price: 60, category: "wildlife" },
+            { id: 15, title: "Game Drive", price: 90, category: "wildlife" },
+            { id: 16, title: "Night Safari", price: 110, category: "wildlife" },
+            { id: 17, title: "Cheetah Conservation", price: 95, category: "wildlife" },
+            { id: 18, title: "Wildlife Photography Tour", price: 125, category: "wildlife" },
+            { id: 19, title: "Crocodile Cage Diving", price: 140, category: "wildlife" },
+            { id: 20, title: "Conservation Experience", price: 100, category: "wildlife" },
+            
+            // Cultural Activities
+            { id: 21, title: "Boma Dinner Experience", price: 65, category: "culture" },
+            { id: 22, title: "Cultural Village Tour", price: 55, category: "culture" },
+            { id: 23, title: "Traditional Cooking Class", price: 75, category: "culture" },
+            { id: 24, title: "Local Craft Workshop", price: 60, category: "culture" },
+            { id: 25, title: "Tribal Dance Performance", price: 50, category: "culture" },
+            { id: 26, title: "Historical City Tour", price: 70, category: "culture" },
+            { id: 27, title: "Artisan Market Visit", price: 45, category: "culture" },
+            { id: 28, title: "Storytelling Session", price: 40, category: "culture" },
+            { id: 29, title: "Traditional Healer Visit", price: 65, category: "culture" },
+            { id: 30, title: "Community Project Visit", price: 55, category: "culture" },
+            
+            // Water Activities
+            { id: 31, title: "Helicopter Flight", price: 150, category: "water" },
+            { id: 32, title: "Canoe Safari", price: 90, category: "water" },
+            { id: 33, title: "River Cruise", price: 80, category: "water" },
+            { id: 34, title: "Fishing Expedition", price: 110, category: "water" },
+            { id: 35, title: "Kayaking", price: 75, category: "water" },
+            { id: 36, title: "Sunset Sailing", price: 95, category: "water" },
+            { id: 37, title: "Snorkeling Tour", price: 85, category: "water" },
+            { id: 38, title: "Waterfall Swimming", price: 65, category: "water" },
+            { id: 39, title: "River Tubing", price: 70, category: "water" },
+            { id: 40, title: "Diving Experience", price: 130, category: "water" },
+            
+            // Additional Activities
+            { id: 41, title: "Photography Workshop", price: 120, category: "wildlife" },
+            { id: 42, title: "Stargazing Experience", price: 60, category: "adventure" },
+            { id: 43, title: "Hot Air Balloon Safari", price: 220, category: "adventure" },
+            { id: 44, title: "Botanical Walk", price: 45, category: "culture" },
+            { id: 45, title: "Wine Tasting Tour", price: 75, category: "culture" },
+            { id: 46, title: "Yoga Retreat", price: 90, category: "culture" },
+            { id: 47, title: "Spa & Wellness", price: 110, category: "culture" },
+            { id: 48, title: "Horseback Safari", price: 130, category: "wildlife" },
+            { id: 49, title: "Guided Nature Walk", price: 65, category: "wildlife" },
+            { id: 50, title: "Survival Skills Workshop", price: 95, category: "adventure" },
+            { id: 51, title: "Volunteer Experience", price: 85, category: "culture" },
+            { id: 52, title: "Sunrise Photography Tour", price: 70, category: "wildlife" },
+            { id: 53, title: "Culinary Tour", price: 100, category: "culture" }
+        ];
+        
+        // ====== Reviews Data ======
+        const reviews = [
+            {
+                id: 1,
+                name: "Thomas Müller",
+                initials: "TM",
+                content: "The Victoria Falls tour was absolutely breathtaking! The guides were knowledgeable and made our experience unforgettable.",
+                rating: 5,
+                language: "de"
+            },
+            {
+                id: 2,
+                name: "Li Jing",
+                initials: "LJ",
+                content: "Our safari in Hwange National Park exceeded all expectations. We saw so many elephants and other wildlife up close.",
+                rating: 4.5,
+                language: "zh"
+            },
+            {
+                id: 3,
+                name: "Marie Peréz",
+                initials: "MP",
+                content: "The Boma Dinner was the highlight of our trip! The food, music, and dancing created an unforgettable cultural experience.",
+                rating: 5,
+                language: "es"
+            },
+            {
+                id: 4,
+                name: "James Kariuki",
+                initials: "JK",
+                content: "The helicopter flight over Victoria Falls was worth every penny! The views were spectacular and our pilot was very informative.",
+                rating: 5,
+                language: null
+            },
+            {
+                id: 5,
+                name: "Sarah Peterson",
+                initials: "SP",
+                content: "The elephant encounter was a once-in-a-lifetime experience. Getting so close to these magnificent creatures was humbling and exhilarating.",
+                rating: 4,
+                language: null
+            },
+            {
+                id: 6,
+                name: "David Rodriguez",
+                initials: "DR",
+                content: "The cultural village tour gave us a deep appreciation for local traditions. The villagers were welcoming and shared their way of life.",
+                rating: 5,
+                language: "es"
+            }
+        ];
+        
+        // ====== Initialize Page Content ======
+        function initializePage() {
+            // Initialize tours
+            const toursContainer = document.querySelector('.tours-container');
+            tours.forEach(tour => {
+                const tourCard = document.createElement('div');
+                tourCard.className = 'tour-card';
+                tourCard.innerHTML = `
+                    <div class="tour-content">
+                        <h3 class="tour-title">${tour.title}</h3>
+                        <p class="tour-description">${tour.description}</p>
+                        <span class="tour-price" data-usd="${tour.price}">${currentCurrency.symbol}${(tour.price * currentCurrency.rate).toFixed(2)} per person</span>
+                        <button class="tour-btn" onclick="openBookingModal('${tour.title}', ${tour.price})">Book Now</button>
+                    </div>
+                `;
+                toursContainer.appendChild(tourCard);
+            });
+            
+            // Initialize activities
+            const activitiesContainer = document.getElementById('activitiesContainer');
+            activities.forEach(activity => {
+                const activityCard = document.createElement('div');
+                activityCard.className = 'activity-card';
+                activityCard.dataset.category = activity.category;
+                activityCard.innerHTML = `
+                    <h3 class="activity-title">${activity.title}</h3>
+                    <p>${getActivityDescription(activity)}</p>
+                    <div class="activity-price" data-usd="${activity.price}">${currentCurrency.symbol}${(activity.price * currentCurrency.rate).toFixed(2)} per person</div>
+                    <button class="tour-btn" onclick="openBookingModal('${activity.title}', ${activity.price})">Book Activity</button>
+                `;
+                activitiesContainer.appendChild(activityCard);
+            });
+            
+            // Initialize reviews
+            const reviewsContainer = document.querySelector('.reviews-container');
+            reviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= review.rating) {
+                        starsHtml += '<i class="fas fa-star"></i>';
+                    } else if (i - 0.5 === review.rating) {
+                        starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        starsHtml += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-avatar">${review.initials}</div>
+                        <div class="review-info">
+                            <h4>${review.name}</h4>
+                            <div class="review-stars">${starsHtml}</div>
+                        </div>
+                    </div>
+                    <p class="review-content">${review.content}</p>
+                    ${review.language ? `<button class="translate-btn" onclick="translateReview(this, '${review.language}')">Translate to ${getLanguageName(review.language)}</button>` : ''}
+                `;
+                reviewsContainer.appendChild(reviewCard);
+            });
+        }
+        
+        // Helper functions
+        function getActivityDescription(activity) {
+            const descriptions = {
+                adventure: "Experience the thrill of African adventure with this exciting activity.",
+                wildlife: "Get up close with Africa's incredible wildlife in their natural habitat.",
+                culture: "Immerse yourself in the rich cultural heritage of local communities.",
+                water: "Enjoy the beautiful waterways and aquatic experiences of Africa."
+            };
+            return descriptions[activity.category] || "An unforgettable African experience.";
+        }
+        
+        function getLanguageName(code) {
+            const languages = {
+                de: "German",
+                zh: "Chinese",
+                es: "Spanish"
+            };
+            return languages[code] || "Language";
+        }
+        
+        // ====== Booking Functionality ======
+        let currentPrice = 0;
+        let currentItem = "";
+        
+        function openBookingModal(itemName, itemPrice) {
+            currentPrice = itemPrice;
+            currentItem = itemName;
+            
+            document.getElementById('bookingName').value = itemName;
+            document.getElementById('pricePerPerson').textContent = `${currentCurrency.symbol}${(itemPrice * currentCurrency.rate).toFixed(2)}`;
+            
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formattedDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('bookingDate').value = formattedDate;
+            document.getElementById('bookingDate').min = formattedDate;
+            
+            // Calculate initial price
+            calculatePrice();
+            
+            // Show modal
+            document.getElementById('bookingModal').classList.add('active');
+        }
+        
+        function calculatePrice() {
+            const travelers = parseInt(document.getElementById('travelers').value);
+            const bookingFee = 50 * currentCurrency.rate;
+            const total = (currentPrice * travelers * currentCurrency.rate) + bookingFee;
+            
+            document.getElementById('travelerCount').textContent = travelers;
+            document.getElementById('bookingFee').textContent = `${currentCurrency.symbol}${bookingFee.toFixed(2)}`;
+            document.getElementById('totalPrice').textContent = `${currentCurrency.symbol}${total.toFixed(2)}`;
+        }
+        
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.getElementById('thankYouModal').classList.remove('active');
+        }
+        
+        // ====== Category Filtering ======
+        function setupCategoryFiltering() {
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter activities
+                    const category = this.dataset.category;
+                    const activities = document.querySelectorAll('.activity-card');
+                    
+                    activities.forEach(activity => {
+                        if (category === 'all' || activity.dataset.category === category) {
+                            activity.style.display = 'flex';
+                        } else {
+                            activity.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // ====== Navigation Functionality ======
+        function setupNavigation() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active navigation
+                    document.querySelectorAll('.nav-link').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Show selected page
+                    const pageId = this.getAttribute('data-page');
+                    document.querySelectorAll('.page-container').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    document.getElementById(pageId).classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+        }
+        
+        // ====== Form Submission ======
+        function setupFormSubmission() {
+            // Booking form
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Generate booking code
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let code = 'NS-';
+                for (let i = 0; i < 6; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                document.getElementById('bookingCode').textContent = code;
+                
+                // Show thank you modal
+                document.getElementById('bookingModal').classList.remove('active');
+                document.getElementById('thankYouModal').classList.add('active');
+            });
+            
+            // Contact form
+            document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your inquiry! Our team will contact you shortly.');
+                this.reset();
+            });
+        }
+        
+        // ====== Initialize Everything ======
+        document.addEventListener('DOMContentLoaded', function() {
+            initCurrencySelector();
+            initializePage();
+            setupCategoryFiltering();
+            setupNavigation();
+            setupFormSubmission();
+        });
+    </script>
+</body>
+</html>
